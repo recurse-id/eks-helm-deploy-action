@@ -21,6 +21,10 @@ inputs:
     cluster-role-arn:
         description: 'EKS cluster admin role arn.'
         required: false
+    kubernetes-version:
+        description: 'Kubernetes cluster version (default: 1.19.0).'
+        required: true
+        default: 1.19.0
     config-files:
         description: 'Comma separates list of helm values files.'
         required: false
@@ -54,6 +58,7 @@ runs:
         AWS_ACCESS_KEY_ID: ${{ inputs.aws-access-key-id }}
         CLUSTER_NAME: ${{ inputs.cluster-name }}
         CLUSTER_ROLE_ARN: ${{ inputs.cluster-role-arn }}
+        KUBERNETES_VERSION: ${{ inputs.kubernetes-version }}
         DEPLOY_CONFIG_FILES: ${{ inputs.config-files }}
         DEPLOY_NAMESPACE: ${{ inputs.namespace }}
         DEPLOY_VALUES: ${{ inputs.values }}

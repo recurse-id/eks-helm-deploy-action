@@ -19,6 +19,7 @@ Following inputs can be used as `step.with` keys
 | `namespace`      | String  | Kubernetes namespace to use. |
 | `values`      | String  | Comma separates list of value set for helms. e.x: key1=value1,key2=value2 |
 | `name`      | String  | The name of the helm release |
+| `flags`      | String  | Additional flags to pass to Helm |
 | `chart-path`      | String  | The path to the chart. (defaults to `helm/`) |
 
 

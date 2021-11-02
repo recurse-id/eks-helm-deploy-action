@@ -20,6 +20,9 @@ fi
 # Helm Deployment
 DEPS_UPDATE_COMMAND="helm dependency update ${DEPLOY_CHART_PATH}"
 UPGRADE_COMMAND="helm upgrade --timeout ${TIMEOUT}"
+if [ -n "$FLAGS" ]; then
+    UPGRADE_COMMAND="${UPGRADE_COMMAND} ${FLAGS}"
+fi
 for config_file in ${DEPLOY_CONFIG_FILES//,/ }
 do
     UPGRADE_COMMAND="${UPGRADE_COMMAND} -f ${config_file}"

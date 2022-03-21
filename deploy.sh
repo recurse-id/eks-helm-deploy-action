@@ -2,19 +2,35 @@
 
 # Install kubectl
 
-curl -LO https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64/kubectl \
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v"${KUBERNETES_VERSION}"/bin/linux/amd64/kubectl \
     && chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
 
 # Login to Kubernetes Cluster.
 if [ -n "$CLUSTER_ROLE_ARN" ]; then
     aws eks \
-        --region ${AWS_REGION} \
-        update-kubeconfig --name ${CLUSTER_NAME} \
-        --role-arn=${CLUSTER_ROLE_ARN}
+        --region "${AWS_REGION}" \
+        update-kubeconfig --name "${CLUSTER_NAME}" \
+        --role-arn="${CLUSTER_ROLE_ARN}"
 else
     aws eks \
-        --region ${AWS_REGION} \
-        update-kubeconfig --name ${CLUSTER_NAME} 
+        --region "${AWS_REGION}" \
+        update-kubeconfig --name "${CLUSTER_NAME}" 
+fi
+
+# Helm Uninstall
+UNINSTALL_COMMAND="helm uninstall ${DEPLOY_NAME} --timeout ${TIMEOUT}"
+DELETE_NAMESPACE_COMMAND="kubectl delete ns ${DEPLOY_NAMESPACE}"
+if [ -n "$DEPLOY_NAMESPACE" ]; then
+    UNINSTALL_COMMAND="${UNINSTALL_COMMAND} -n ${DEPLOY_NAMESPACE}"
+fi
+if [ "$UNINSTALL" = "true" ] ; then
+    echo "Executing: ${UNINSTALL_COMMAND}"
+    ${UNINSTALL_COMMAND}
+    if [ "$DELETE_NAMESPACE" = "true" ] ; then
+        echo "Executing: ${DELETE_NAMESPACE_COMMAND}"
+        ${DELETE_NAMESPACE_COMMAND}
+    fi
+    exit 0
 fi
 
 # Helm Deployment

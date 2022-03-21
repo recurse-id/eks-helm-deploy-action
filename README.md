@@ -22,7 +22,7 @@ Following inputs can be used as `step.with` keys
 | `flags`      | String  | Additional flags to pass to Helm |
 | `chart-path`      | String  | The path to the chart. (defaults to `helm/`) |
 | `uninstall`      | String  | Whether to uninstall a Helm release. (defaults to `false`) |
-| `delete-namespace`      | String  | Whether to remove the namespace when uninstall a Helm release |
+| `delete-namespace`      | String  | Whether to remove the namespace when uninstalling a Helm release (defaults to `false`) |
 
 
 ## Example usage

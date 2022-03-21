@@ -39,7 +39,7 @@ inputs:
         required: true
     chart-path:
         description: 'The path of the chart.'
-        required: true
+        required: false
         default: 'helm/'
     timeout:
         description: 'Timeout for the job.'
@@ -52,6 +52,14 @@ inputs:
     flags:
         description: 'Additional flags to pass to Helm.'
         required: false
+    uninstall:
+        description: 'Whether to uninstall a Helm release.'
+        required: false
+        default: "false"
+    delete-namespace:
+        description: 'Whether to remove the namespace when uninstall a Helm release.'
+        required: false
+        default: "false"
 runs:
     using: 'docker'
     image: 'Dockerfile'
@@ -70,3 +78,5 @@ runs:
         TIMEOUT: ${{ inputs.timeout }}
         UPDATE_DEPS: ${{ inputs.update-deps }}
         FLAGS: ${{ inputs.flags }}
+        UNINSTALL: ${{ inputs.uninstall }}
+        DELETE_NAMESPACE: ${{ inputs.delete-namespace }}

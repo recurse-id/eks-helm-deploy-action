@@ -21,12 +21,14 @@ Following inputs can be used as `step.with` keys
 | `name`      | String  | The name of the helm release |
 | `flags`      | String  | Additional flags to pass to Helm |
 | `chart-path`      | String  | The path to the chart. (defaults to `helm/`) |
+| `uninstall`      | String  | Whether to uninstall a Helm release. (defaults to `false`) |
+| `delete-namespace`      | String  | Whether to remove the namespace when uninstalling a Helm release (defaults to `false`) |
 
 
 ## Example usage
 
 ```yaml
-uses: craftech-io/eks-helm-deploy-action@v1
+uses: recurse-id/eks-helm-deploy-action@master
 with:
   aws-access-key-id: ${{ secrets.AWS_ACCESS__KEY_ID }}
   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
